@@ -25,22 +25,19 @@
     <div class="card bg-light mb-3" style="max-width: 40rem;">
       <div class="card-header">レビュー</div>
       <div class="card-body">
-        <ul>
-          <% @book.book_review.each do |book_review|%>
-          　<div class="card border-light mb-3" style="max-width: 20rem;">
-              <div class="card-header"><%= book_review.user_id %></div>
-              <div class="card-body">
-                <p class="card-text"><%= book_review.review %></p>
-              </div>
-            </div>
-          <% end %>
-        </ul>
       <%= form_with(model: @book_review, local: true) do |form| %>
         <div class= "field">
           <%= form.text_area :review, :class => "form-control" %>
           <%= form.hidden_field :user_id, :value => current_user.id %>
           <%= form.hidden_field :book_id, :value => @book.id %>
         </div>
+        <h2>Review List</h2>
+     <ul>
+       <% @book.book_review.each do |book_review|%>
+        <li><%= book_review.review %>
+          (<b><%= book_review.user_id %></b>)</li>
+     <% end %>
+     </ul>
         <div class="actions">
           <%= form.submit %>
         </div>
